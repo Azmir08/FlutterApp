@@ -21,7 +21,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const HomePage(),
-      theme: ThemeData(primarySwatch: Colors.yellow),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.yellow,
+          primary: Colors.yellow[200],
+        ),
+      ),
     );
   }
 }
