@@ -47,7 +47,10 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
-              icon: Icon(Icons.menu),
+              icon: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Icon(Icons.menu),
+              ),
             );
           },
         ),
@@ -55,28 +58,40 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
         backgroundColor: Colors.grey[900],
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            //logo
-            DrawerHeader(
-              child: Image.asset(
-                "lib/images/pumaLogo.png",
-                color: Colors.white,
-              ),
-            ),
+            Column(
+              children: [
+                //logo
+                DrawerHeader(
+                  child: Image.asset(
+                    "lib/images/pumaLogo.png",
+                    color: Colors.white,
+                  ),
+                ),
 
-            //other pages
-            Padding(
-              padding: EdgeInsets.only(left: 25),
-              child: ListTile(
-                leading: Icon(Icons.home, color: Colors.white),
-                title: Text("Home", style: TextStyle(color: Colors.white)),
-              ),
+                //other pages
+                Padding(
+                  padding: EdgeInsets.only(left: 25),
+                  child: ListTile(
+                    leading: Icon(Icons.home, color: Colors.white),
+                    title: Text("Home", style: TextStyle(color: Colors.white)),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 25),
+                  child: ListTile(
+                    leading: Icon(Icons.info, color: Colors.white),
+                    title: Text("About", style: TextStyle(color: Colors.white)),
+                  ),
+                ),
+              ],
             ),
             Padding(
-              padding: EdgeInsets.only(left: 25),
+              padding: EdgeInsets.only(left: 25, bottom: 25),
               child: ListTile(
-                leading: Icon(Icons.info, color: Colors.white),
-                title: Text("About", style: TextStyle(color: Colors.white)),
+                leading: Icon(Icons.logout, color: Colors.white),
+                title: Text("Logout", style: TextStyle(color: Colors.white)),
               ),
             ),
           ],
