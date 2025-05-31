@@ -15,6 +15,13 @@ class ShopPage extends StatelessWidget {
       appBar: AppBar(
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text("Shop Page"),
+        actions: [
+          // go to cart button
+          IconButton(
+            onPressed: () => Navigator.pushNamed(context, "/cart_page"),
+            icon: Icon(Icons.shopping_cart_outlined),
+          ),
+        ],
       ),
       drawer: MyDrawer(),
       body: ListView(
