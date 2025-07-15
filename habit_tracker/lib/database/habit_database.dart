@@ -95,6 +95,8 @@ class HabitDatabase extends ChangeNotifier {
         await isar.habits.put(habit);
       });
     }
+    // re-read from db
+    readHabits();
   }
 
   // U P D A T E - edit habit name
