@@ -1,17 +1,44 @@
 import 'package:authentication/components/my_button.dart';
 import 'package:authentication/components/my_textfield.dart';
 import 'package:authentication/components/square_tile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   // text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
 
   // sign user in method
-  void signUserIn() {}
+  void signUserIn() async {
+    // show loading circle
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(child: CircularProgressIndicator()),
+    );
+
+    // try sign in
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+    } catch (e) {
+      // Handle error (optional)
+    }
+
+    if (!mounted) return; // ✅ ensures widget is still in the tree
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +47,12 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 50),
+              SizedBox(height: 20),
               // logo
               Icon(Icons.lock, size: 100),
-              SizedBox(height: 50),
+              SizedBox(height: 30),
 
               // welcome back, you've been missed!
               Text(
@@ -33,10 +61,10 @@ class LoginPage extends StatelessWidget {
               ),
               SizedBox(height: 25),
 
-              // username textfield
+              // email textfield
               MyTextfield(
-                controller: usernameController,
-                hintText: 'Username',
+                controller: emailController,
+                hintText: 'Email',
                 obscureText: false,
               ),
               SizedBox(height: 10),
@@ -65,7 +93,7 @@ class LoginPage extends StatelessWidget {
 
               // sign in button
               MyButton(onTap: signUserIn),
-              SizedBox(height: 50),
+              SizedBox(height: 30),
 
               // or continue with
               Padding(
@@ -88,7 +116,7 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 30),
 
               // google + apple sign in buttons
               Row(
@@ -96,13 +124,28 @@ class LoginPage extends StatelessWidget {
                 children: [
                   // google button
                   SquareTile(imagePath: 'lib/images/google.png'),
-                  SizedBox(height: 10),
+                  SizedBox(width: 25),
                   // apple button
                   SquareTile(imagePath: 'lib/images/apple.png'),
                 ],
               ),
+              SizedBox(height: 20),
 
               // not a member? register now
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Not a member?'),
+                  SizedBox(width: 4),
+                  Text(
+                    'Register now',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
