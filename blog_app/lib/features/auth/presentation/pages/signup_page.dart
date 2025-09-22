@@ -1,9 +1,11 @@
 import 'package:blog_app/core/theme/app_pallete.dart';
+import 'package:blog_app/features/auth/presentation/pages/login_page.dart';
 import 'package:blog_app/features/auth/presentation/widgets/auth_field.dart';
 import 'package:blog_app/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
+  static route() => MaterialPageRoute(builder: (context) => SignUpPage());
   const SignUpPage({super.key});
 
   @override
@@ -27,6 +29,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Form(
@@ -51,19 +54,25 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(height: 20),
               AuthGradientButton(buttonText: 'Sign Up'),
               SizedBox(height: 20),
-              RichText(
-                text: TextSpan(
-                  text: "Already have an account? ",
-                  style: Theme.of(context).textTheme.titleMedium,
-                  children: [
-                    TextSpan(
-                      text: 'Sign In',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: AppPallete.gradient2,
-                        fontWeight: FontWeight.bold,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context, LoginPage.route());
+                },
+                child: RichText(
+                  text: TextSpan(
+                    text: "Already have an account? ",
+                    style: Theme.of(context).textTheme.titleMedium,
+                    children: [
+                      TextSpan(
+                        text: 'Sign In',
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              color: AppPallete.gradient2,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
